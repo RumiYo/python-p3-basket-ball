@@ -182,3 +182,70 @@ def game_dict():
             ]
         }
     }
+
+game_data = game_dict()
+all_players = game_data["home"]["players"] + game_data["away"]["players"]
+print(all_players)
+
+def num_points_per_game(name):
+    for player in all_players:
+        if player["name"] == name:
+            return player["points_per_game"]   
+
+def player_age(name):
+    for player in all_players:
+         if player["name"] == name:
+            return player["age"]
+
+def team_colors(team_name):
+    if team_name == game_data["home"]["team_name"]:
+        return game_data["home"]["colors"]
+    elif team_name == game_data["away"]["team_name"]:
+        return game_data["away"]["colors"]    
+
+def team_names():
+    team_name_list = [game_data["home"]["team_name"],game_data["away"]["team_name"]]
+    return team_name_list
+
+def player_numbers(team_name):
+    jersey_list = list()
+    if team_name == game_data["home"]["team_name"]:
+        home_team_players = game_data["home"]["players"]
+        for player in home_team_players:
+            jersey_list.append(player["number"])
+    elif team_name == game_data["away"]["team_name"]:
+        away_team_players = game_data["away"]["players"]
+        for player in away_team_players:
+            jersey_list.append(player["number"])
+    return jersey_list
+
+def player_stats(name):
+    for player in all_players:
+        if name == player["name"]:
+            return player
+
+def average_rebounds_by_shoe_brand():
+    shoe_brand_list = list()
+    for player in all_players:
+        if player["shoe_brand"] not in shoe_brand_list:
+            shoe_brand_list.append(player["shoe_brand"])
+    nike_rebounds = list()
+    adidas_rebounds = list() 
+    puma_rebounds = list()
+    jordan_rebounds = list()  
+    for player in all_players:   
+        if player["shoe_brand"] == "Nike":
+            nike_rebounds.append(player["rebounds_per_game"])
+        elif player["shoe_brand"] == "Adidas":
+            adidas_rebounds.append(player["rebounds_per_game"])
+        elif player["shoe_brand"] == "Puma":
+            puma_rebounds.append(player["rebounds_per_game"])    
+        elif player["shoe_brand"] == "Jordan":
+            jordan_rebounds.append(player["rebounds_per_game"])
+    print (f"Nike:  {(sum(nike_rebounds) / len(nike_rebounds)):.2f}")
+    print (f"Adidas:  {(sum(adidas_rebounds) / len(adidas_rebounds)):.2f}")
+    print (f"Puma:  {(sum(puma_rebounds) / len(puma_rebounds)):.2f}")
+    print (f"Jordan:  {(sum(jordan_rebounds) / len(jordan_rebounds)):.2f}")
+
+
+
